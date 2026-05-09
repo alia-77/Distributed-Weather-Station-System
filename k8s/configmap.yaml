@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: weather-config
+data:
+  # Connection details
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-svc:9092"
+  WEATHER_TOPIC: "weather-readings"
+  RAIN_TOPIC: "rain-alerts"
+  
+  DB_URL: "jdbc:postgresql://postgres-svc:5432/weather_db"
+  
+  BATCH_SIZE: "100"

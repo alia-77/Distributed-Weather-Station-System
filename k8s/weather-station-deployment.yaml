@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: weather-station
+  template:
+    metadata:
+      labels:
+        app: weather-station
+    spec:
+      containers:
+        - name: station
+          image: weather-monitoring:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MAIN_CLASS
+              value: "WeatherStation"
+            - name: STATION_ID 
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          envFrom:
+            - configMapRef:
+                name: weather-config

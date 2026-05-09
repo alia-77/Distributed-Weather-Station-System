@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rain-detector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rain-detector
+  template:
+    metadata:
+      labels:
+        app: rain-detector
+    spec:
+      containers:
+        - name: rain-detector
+          image: weather-monitoring:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MAIN_CLASS
+              value: RainDetector
+          envFrom:
+            - configMapRef:
+                name: weather-config
