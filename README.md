@@ -14,9 +14,9 @@ WeatherStation (producer)  →  Kafka topic: weather-readings
                                               → Kafka topic: rain-alerts
 ```
 
-- **WeatherStation** — simulates a physical station: generates temperature, humidity, wind speed and battery status readings on an interval, publishes them as JSON to Kafka. Includes randomized packet drops to simulate unreliable sensors, and derives a station ID from its pod name so replicas identify themselves automatically.
-- **CentralStation** — consumes readings, batches inserts (configurable batch size), and writes them to a PostgreSQL table it initializes on startup. Uses manual offset commits so a batch is only acknowledged once it's durably written.
-- **RainDetector** — a Kafka Streams topology that filters the reading stream for high humidity and republishes matches to a `rain-alerts` topic, decoupling alerting from storage.
+- **WeatherStation** - simulates a physical station: generates temperature, humidity, wind speed and battery status readings on an interval, publishes them as JSON to Kafka. Includes randomized packet drops to simulate unreliable sensors, and derives a station ID from its pod name so replicas identify themselves automatically.
+- **CentralStation** - consumes readings, batches inserts (configurable batch size), and writes them to a PostgreSQL table it initializes on startup. Uses manual offset commits so a batch is only acknowledged once it's durably written.
+- **RainDetector** - a Kafka Streams topology that filters the reading stream for high humidity and republishes matches to a `rain-alerts` topic, decoupling alerting from storage.
 
 ## Stack
 Java, Apache Kafka (producer/consumer + Kafka Streams), PostgreSQL, Docker, Kubernetes
