@@ -19,13 +19,13 @@ PostgreSQL            ▼
                   Kafka: rain-alerts
 ```
 
-### Services
+## Services
 
 * **WeatherStation** - Simulates weather stations and publishes temperature, humidity, wind speed, battery status, timestamps, and sequence numbers to Kafka. Derives a station ID from its pod name so replicas identify themselves automatically. Also simulates unreliable sensors by randomly dropping readings.
 * **CentralStation** - Consumes weather readings from Kafka, batches them (configurable batch size), and writes them to a PostgreSQL table it initializes on startup. Kafka offsets are manually committed only after a batch is successfully written, so no readings are lost if it crashes mid-batch.
 * **RainDetector** - Uses Kafka Streams to filter readings with humidity above 70% and publishes them to the `rain-alerts` topic, keeping alerting separate from storage.
 
-### Tech Stack
+## Tech Stack
 
 * Java 17
 * Apache Kafka
